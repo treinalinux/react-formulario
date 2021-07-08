@@ -1,25 +1,53 @@
 import React from 'react';
+import { Formik } from 'formik'
 
 const AdicionaCliente = () => {
   return (
     <>
       <h1>Cadastro de Clientes</h1>
 
-      <form>
-        <div className="form-group">
-          <label htmlFor="nome">Nome</label>
-          <input id="nome" name="nome" type="text" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input id="email" name="email" type="email" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="date">Data de Nascimento</label>
-          <input id="nascimento" name="nascimento" type="date" />
-        </div>
-        <button type="submit">Adicionar</button>
-      </form>
+    <Formik
+    initialValues={{ nome: 'Seu Nome', email: 'seu@mail.com', nascimento: ''}}
+    onSubmit={(values) => {
+      alert(JSON.stringify(values))
+    }}
+    >
+        {(props) => (
+          <form onSubmit={props.handleSubmit} noValidate>
+            <div className="form-group">
+              <label htmlFor="nome">Nome</label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                value={props.values.nome}
+                onChange={props.handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={props.values.email}
+                onChange={props.handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="date">Data de Nascimento</label>
+              <input
+                type="date"
+                id="nascimento"
+                name="nascimento"
+                value={props.values.nascimento}
+                onChange={props.handleChange}
+              />
+            </div>
+            <button type="submit">Adicionar</button>
+          </form>
+        )}
+      </Formik>
     </>
   );
 };
